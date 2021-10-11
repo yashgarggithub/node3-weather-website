@@ -7,6 +7,8 @@ const express = require('express')
 const app = express()
 const hbs = require('hbs')  //handlebars
 
+const port = process.env.PORT || 3000
+
 //Define path for the express configuration
 const publicDirectoryPath = path.join(__dirname, '..', 'public')
 const viewsPath = path.join(__dirname, '..', 'templates/views')
@@ -57,7 +59,7 @@ app.get('/weather', (req, res) => {
         })
     }
     const loaction_to_search = req.query.address
-    
+
     // geocode(loaction_to_search, (error, data) => {
     geocode(loaction_to_search, (error, { latitude, longitude, location } = {}) => {   //destructured
 
@@ -117,6 +119,6 @@ app.get('*', (req, res) => {    // * - anything that hasn't been used yet
 })
 
 //this function starts up the server, only used ONCE
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.');
+app.listen(port, () => {
+    console.log('Server is up on port ' + port);
 })
